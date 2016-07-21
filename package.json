@@ -2,7 +2,7 @@
   "name": "local-dfi-debug-logger",
   "version": "0.0.1",
   "description": "debug extensions",
-  "main": "index.js",
+  "main": "debugLogger.js",
   "repository": {
     "type": "git",
     "url": "git+ssh// git@gitlab.dev:z.wieczorek/dfi-asterisk.git"

@@ -10,7 +10,7 @@ var colors = {
     error: 1,
     fatal: 5,
 }
-class AsteriskLogger {
+class DebugLogger {
     constructor(name) {
         this.name = name;
         this.loggers = {}
@@ -56,4 +56,4 @@ class AsteriskLogger {
 
 }
 
-module.exports = AsteriskLogger;
+module.exports = DebugLogger;
