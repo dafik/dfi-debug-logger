@@ -3,13 +3,15 @@
   "version": "0.0.2",
   "description": "debug extensions",
   "main": "debugLogger.js",
+  "types": "debugLogger.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+ssh// git@gitlab.dev:z.wieczorek/dfi-asterisk.git"
+    "url": "git+ssh://git@gitlab.dev:dfi/dfi-debug-logger.git"
   },
   "author": "z.wieczorek",
   "license": "private",
   "dependencies": {
+    "@types/debug": "0.0.29",
     "debug": "*"
   },
   "engines": {

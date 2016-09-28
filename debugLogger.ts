@@ -1,44 +1,53 @@
-"use strict";
-const debug = require("debug");
-var Colors;
-(function (Colors) {
-    Colors[Colors["debug"] = 6] = "debug";
-    Colors[Colors["error"] = 1] = "error";
-    Colors[Colors["info"] = 2] = "info";
-    Colors[Colors["warn"] = 3] = "warn";
-    Colors[Colors["trace"] = 4] = "trace";
-    Colors[Colors["fatal"] = 5] = "fatal";
-})(Colors || (Colors = {}));
-class DebugLogger {
-    constructor(name) {
+import * as debug from "debug";
+
+enum Colors  {
+    debug = 6,
+    error = 1,
+    info = 2,
+    warn = 3,
+    trace = 4,
+    fatal = 5
+
+}
+export class DebugLogger {
+    name: string;
+    private _loggers: Object;
+
+    constructor(name: string) {
         this.name = name;
         this._loggers = {};
     }
-    getLogger(type) {
+
+    getLogger(type: string): debug.IDebugger {
         if (!this._loggers.hasOwnProperty(type)) {
             this._loggers[type] = debug(this.name + ':' + type);
             this._loggers[type].color = Colors[type];
         }
         return this._loggers[type];
     }
-    trace(formatter, ...args) {
+
+    trace(formatter: any, ...args: any[]): void {
         return this.getLogger('trace').apply(null, arguments);
     }
-    debug(formatter, ...args) {
+
+    debug(formatter: any, ...args: any[]): void {
         return this.getLogger('debug').apply(null, arguments);
     }
-    info(formatter, ...args) {
+
+    info(formatter: any, ...args: any[]): void {
         return this.getLogger('info').apply(null, arguments);
     }
-    warn(formatter, ...args) {
+
+    warn(formatter: any, ...args: any[]): void {
         return this.getLogger('warn').apply(null, arguments);
     }
-    error(formatter, ...args) {
+
+    error(formatter: any, ...args: any[]): void {
         return this.getLogger('error').apply(null, arguments);
     }
-    fatal(formatter, ...args) {
+
+    fatal(formatter: any, ...args: any[]): void {
         return this.getLogger('fatal').apply(null, arguments);
     }
+
 }
-exports.DebugLogger = DebugLogger;
-//# sourceMappingURL=debugLogger.js.map

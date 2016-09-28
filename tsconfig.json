@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2015",
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "declaration": true,
+    "types": [
+      "debug.IDebug"
+    ]
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
