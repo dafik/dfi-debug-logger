@@ -40,5 +40,5 @@ class DebugLogger {
         return this.getLogger('fatal').apply(null, arguments);
     }
 }
-exports.DebugLogger = DebugLogger;
+module.exports = DebugLogger;
 //# sourceMappingURL=debugLogger.js.map

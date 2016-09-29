@@ -9,7 +9,7 @@
     "url": "git+ssh://git@gitlab.dev:dfi/dfi-debug-logger.git"
   },
   "author": "z.wieczorek",
-  "license": "private",
+  "license": "UNLICENSED",
   "dependencies": {
     "@types/debug": "0.0.29",
     "debug": "*"
