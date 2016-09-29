@@ -9,7 +9,7 @@ enum Colors  {
     fatal = 5
 
 }
-class DebugLogger {
+export default class DebugLogger {
     name: string;
     private _loggers: Object;
 
@@ -51,4 +51,3 @@ class DebugLogger {
     }
 
 }
-export = DebugLogger;

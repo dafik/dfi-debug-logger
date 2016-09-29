@@ -1,5 +1,5 @@
 import * as debug from "debug";
-declare class DebugLogger {
+export default class DebugLogger {
     name: string;
     private _loggers;
     constructor(name: string);
@@ -11,4 +11,3 @@ declare class DebugLogger {
     error(formatter: any, ...args: any[]): void;
     fatal(formatter: any, ...args: any[]): void;
 }
-export = DebugLogger;

@@ -40,5 +40,6 @@ class DebugLogger {
         return this.getLogger('fatal').apply(null, arguments);
     }
 }
-module.exports = DebugLogger;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = DebugLogger;
 //# sourceMappingURL=debugLogger.js.map
