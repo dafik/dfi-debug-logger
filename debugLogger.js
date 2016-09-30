@@ -8,6 +8,7 @@ var Colors;
     Colors[Colors["warn"] = 3] = "warn";
     Colors[Colors["trace"] = 4] = "trace";
     Colors[Colors["fatal"] = 5] = "fatal";
+    Colors[Colors["ssss"] = 333] = "ssss";
 })(Colors || (Colors = {}));
 class DebugLogger {
     constructor(name) {
@@ -40,6 +41,5 @@ class DebugLogger {
         return this.getLogger('fatal').apply(null, arguments);
     }
 }
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = DebugLogger;
+module.exports = DebugLogger;
 //# sourceMappingURL=debugLogger.js.map

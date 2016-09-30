@@ -12,6 +12,7 @@
   "license": "UNLICENSED",
   "dependencies": {
     "@types/debug": "0.0.29",
+    "@types/node": "^6.0.41",
     "debug": "*"
   },
   "engines": {

@@ -11,4 +11,4 @@ declare class DebugLogger {
     error(formatter: any, ...args: any[]): void;
     fatal(formatter: any, ...args: any[]): void;
 }
-export default DebugLogger;
+export = DebugLogger;

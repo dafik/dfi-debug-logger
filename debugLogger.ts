@@ -6,8 +6,8 @@ enum Colors  {
     info = 2,
     warn = 3,
     trace = 4,
-    fatal = 5
-
+    fatal = 5,
+    ssss = 333
 }
 class DebugLogger {
     name: string;
@@ -51,4 +51,4 @@ class DebugLogger {
     }
 
 }
-export default  DebugLogger
+export = DebugLogger
