@@ -40,6 +40,24 @@ class DebugLogger {
     fatal(formatter, ...args) {
         return this.getLogger('fatal').apply(null, arguments);
     }
+    isTraceEnabled() {
+        return this.getLogger('trace').enabled;
+    }
+    isDebugEnabled() {
+        return this.getLogger('debug').enabled;
+    }
+    isInfoEnabled() {
+        return this.getLogger('info').enabled;
+    }
+    isWarnEnabled() {
+        return this.getLogger('warn').enabled;
+    }
+    isErrorEnabled() {
+        return this.getLogger('error').enabled;
+    }
+    isFatalEnabled() {
+        return this.getLogger('fatal').enabled;
+    }
 }
 module.exports = DebugLogger;
 //# sourceMappingURL=debugLogger.js.map

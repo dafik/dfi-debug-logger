@@ -10,5 +10,11 @@ declare class DebugLogger {
     warn(formatter: any, ...args: any[]): void;
     error(formatter: any, ...args: any[]): void;
     fatal(formatter: any, ...args: any[]): void;
+    isTraceEnabled(): boolean;
+    isDebugEnabled(): boolean;
+    isInfoEnabled(): boolean;
+    isWarnEnabled(): boolean;
+    isErrorEnabled(): boolean;
+    isFatalEnabled(): boolean;
 }
 export = DebugLogger;

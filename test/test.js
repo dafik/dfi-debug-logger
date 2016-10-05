@@ -12,7 +12,6 @@ x.fatal('fatal');
 x.info('info');
 x.trace('trace');
 x.warn('warn');
-
-
-process.exit();
+x.isWarnEnabled();
+x.isErrorEnabled();
 //# sourceMappingURL=test.js.map

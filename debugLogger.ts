@@ -50,5 +50,29 @@ class DebugLogger {
         return this.getLogger('fatal').apply(null, arguments);
     }
 
+    isTraceEnabled(): boolean {
+        return this.getLogger('trace').enabled;
+    }
+
+    isDebugEnabled(): boolean {
+        return this.getLogger('debug').enabled;
+    }
+
+    isInfoEnabled(): boolean {
+        return this.getLogger('info').enabled;
+    }
+
+    isWarnEnabled(): boolean {
+        return this.getLogger('warn').enabled;
+    }
+
+    isErrorEnabled(): boolean {
+        return this.getLogger('error').enabled;
+    }
+
+    isFatalEnabled(): boolean {
+        return this.getLogger('fatal').enabled;
+    }
+
 }
 export = DebugLogger
