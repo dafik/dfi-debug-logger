@@ -1,7 +1,7 @@
 import * as debug from "debug";
 
 declare module "local-dfi-debug-logger" {
-    class DebugLogger {
+    export class DebugLogger {
         name: string;
         private _loggers;
 
@@ -33,5 +33,4 @@ declare module "local-dfi-debug-logger" {
 
         isFatalEnabled(): boolean;
     }
-    export = DebugLogger;
 }

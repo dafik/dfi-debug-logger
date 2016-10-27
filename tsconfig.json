@@ -4,7 +4,6 @@
     "target": "es2015",
     "sourceMap": true,
     "moduleResolution": "node",
-    "declaration": true,
     "types": [
       "debug.IDebug"
     ]
