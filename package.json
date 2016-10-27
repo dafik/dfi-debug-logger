@@ -18,5 +18,9 @@
   "engines": {
     "node": ">=6"
   },
-  "typings": "debugLogger.d.ts"
+  "typings": "debugLogger.d.ts",
+  "devDependencies": {
+    "@types/mocha": "^2.2.32",
+    "mocha": "^3.1.2"
+  }
 }

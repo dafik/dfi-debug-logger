@@ -1,36 +1,36 @@
 import * as debug from "debug";
 
 declare module "local-dfi-debug-logger" {
-    export class DebugLogger {
-        name: string;
-        private _loggers;
+    class DebugLogger {
+        public readonly name: string;
 
         constructor(name: string);
 
-        getLogger(type: string): debug.IDebugger;
+        public getLogger(type: string): debug.IDebugger;
 
-        trace(formatter: any, ...args: any[]): void;
+        public trace(formatter: any, ...args: any[]): void;
 
-        debug(formatter: any, ...args: any[]): void;
+        public debug(formatter: any, ...args: any[]): void;
 
-        info(formatter: any, ...args: any[]): void;
+        public info(formatter: any, ...args: any[]): void;
 
-        warn(formatter: any, ...args: any[]): void;
+        public warn(formatter: any, ...args: any[]): void;
 
-        error(formatter: any, ...args: any[]): void;
+        public error(formatter: any, ...args: any[]): void;
 
-        fatal(formatter: any, ...args: any[]): void;
+        public fatal(formatter: any, ...args: any[]): void;
 
-        isTraceEnabled(): boolean;
+        public isTraceEnabled(): boolean;
 
-        isDebugEnabled(): boolean;
+        public isDebugEnabled(): boolean;
 
-        isInfoEnabled(): boolean;
+        public isInfoEnabled(): boolean;
 
-        isWarnEnabled(): boolean;
+        public isWarnEnabled(): boolean;
 
-        isErrorEnabled(): boolean;
+        public isErrorEnabled(): boolean;
 
-        isFatalEnabled(): boolean;
+        public isFatalEnabled(): boolean;
     }
+    export = DebugLogger;
 }
