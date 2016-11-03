@@ -3,7 +3,6 @@
   "version": "0.1.8",
   "description": "debug extensions",
   "main": "debugLogger.js",
-  "types": "debugLogger.d.ts",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@gitlab.dev:dfi/dfi-debug-logger.git"
@@ -11,8 +10,6 @@
   "author": "z.wieczorek",
   "license": "UNLICENSED",
   "dependencies": {
-    "@types/debug": "0.0.29",
-    "@types/node": "^6.0.41",
     "debug": "*"
   },
   "engines": {
@@ -20,6 +17,8 @@
   },
   "typings": "debugLogger.d.ts",
   "devDependencies": {
+    "@types/debug": "0.0.29",
+    "@types/node": "^6.0.41",
     "@types/mocha": "^2.2.32",
     "mocha": "^3.1.2"
   }

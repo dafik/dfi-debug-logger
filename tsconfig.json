@@ -3,10 +3,7 @@
     "module": "commonjs",
     "target": "es2015",
     "sourceMap": true,
-    "moduleResolution": "node",
-    "types": [
-      "debug.IDebug"
-    ]
+    "moduleResolution": "node"
   },
   "exclude": [
     "node_modules"
