@@ -1,6 +1,6 @@
 import * as debug from "debug";
 
-class DebugLogger {
+declare class DebugLogger {
     public readonly name: string;
 
     constructor(name: string);
