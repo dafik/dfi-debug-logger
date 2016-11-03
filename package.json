@@ -10,14 +10,14 @@
   "author": "z.wieczorek",
   "license": "UNLICENSED",
   "dependencies": {
-    "debug": "*"
+    "debug": "*",
+    "@types/debug": "0.0.29"
   },
   "engines": {
     "node": ">=6"
   },
   "typings": "debugLogger.d.ts",
   "devDependencies": {
-    "@types/debug": "0.0.29",
     "@types/node": "^6.0.41",
     "@types/mocha": "^2.2.32",
     "mocha": "^3.1.2"
