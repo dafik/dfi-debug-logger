@@ -16,7 +16,6 @@
   "engines": {
     "node": ">=6"
   },
-  "typings": "debugLogger.d.ts",
   "devDependencies": {
     "@types/node": "^6.0.41",
     "@types/mocha": "^2.2.32",
