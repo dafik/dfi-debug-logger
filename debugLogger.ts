@@ -1,17 +1,21 @@
 import * as debug from "debug";
 
-enum Colors  {
+const enum Colors {
     debug = 6,
     error = 1,
     info = 2,
     warn = 3,
     trace = 4,
-    fatal = 5,
-    ssss = 333
+    fatal = 5
 }
-class DebugLogger {
+
+export default class DebugLogger {
+    get name(): string {
+        return this._name;
+    }
+
     private _name: string;
-    private _loggers: Object;
+    private _loggers: { [key: string]: debug.IDebugger };
 
     constructor(name: string) {
 
@@ -19,40 +23,38 @@ class DebugLogger {
         this._name = name;
     }
 
-    get name(): string {
-        return this._name;
-    }
-
-    public getLogger(type: string): debug.IDebugger {
+    public getLogger(type: string, color?: number): debug.IDebugger {
         if (!this._loggers.hasOwnProperty(type)) {
             this._loggers[type] = debug(this.name + ":" + type);
-            this._loggers[type].color = Colors[type];
+            if (color) {
+                this._loggers[type].color = color;
+            }
         }
         return this._loggers[type];
     }
 
     public trace(formatter: any, ...args: any[]): void {
-        return this.getLogger("trace").apply(null, arguments);
+        return this.getLogger("trace", Colors.trace).apply(null, arguments);
     }
 
     public debug(formatter: any, ...args: any[]): void {
-        return this.getLogger("debug").apply(null, arguments);
+        return this.getLogger("debug", Colors.debug).apply(null, arguments);
     }
 
     public info(formatter: any, ...args: any[]): void {
-        return this.getLogger("info").apply(null, arguments);
+        return this.getLogger("info", Colors.info).apply(null, arguments);
     }
 
     public warn(formatter: any, ...args: any[]): void {
-        return this.getLogger("warn").apply(null, arguments);
+        return this.getLogger("warn", Colors.warn).apply(null, arguments);
     }
 
     public error(formatter: any, ...args: any[]): void {
-        return this.getLogger("error").apply(null, arguments);
+        return this.getLogger("error", Colors.error).apply(null, arguments);
     }
 
     public fatal(formatter: any, ...args: any[]): void {
-        return this.getLogger("fatal").apply(null, arguments);
+        return this.getLogger("fatal", Colors.fatal).apply(null, arguments);
     }
 
     public isTraceEnabled(): boolean {
@@ -78,6 +80,4 @@ class DebugLogger {
     public isFatalEnabled(): boolean {
         return this.getLogger("fatal").enabled;
     }
-
 }
-export = DebugLogger;

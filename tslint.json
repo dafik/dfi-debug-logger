@@ -29,7 +29,11 @@
       "allow-leading-underscore"
     ],
     "no-reference": false,
-    "class-name": false
+    "class-name": false,
+    "no-namespace": [
+      true,
+      "allow-declarations"
+    ]
   },
   "rulesDirectory": [
     /*
