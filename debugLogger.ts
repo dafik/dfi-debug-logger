@@ -1,5 +1,7 @@
 import * as debug from "debug";
 
+const mapToStdOut = typeof process.env.DEBUG_STDOUT !== "undefined" ? !!process.env.DEBUG_STDOUT : false;
+
 const enum Colors {
     debug = 6,
     error = 1,
@@ -28,6 +30,9 @@ export default class DebugLogger {
             this._loggers[type] = debug(this.name + ":" + type);
             if (color) {
                 this._loggers[type].color = color;
+            }
+            if (mapToStdOut) {
+                this._loggers[type].log = console.log.bind(console);
             }
         }
         return this._loggers[type];

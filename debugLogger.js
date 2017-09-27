@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const debug = require("debug");
+const mapToStdOut = typeof process.env.DEBUG_STDOUT !== "undefined" ? !!process.env.DEBUG_STDOUT : false;
 class DebugLogger {
     get name() {
         return this._name;
@@ -14,6 +15,9 @@ class DebugLogger {
             this._loggers[type] = debug(this.name + ":" + type);
             if (color) {
                 this._loggers[type].color = color;
+            }
+            if (mapToStdOut) {
+                this._loggers[type].log = console.log.bind(console);
             }
         }
         return this._loggers[type];
