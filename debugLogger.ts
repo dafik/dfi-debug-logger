@@ -46,14 +46,14 @@ export default class DebugLogger {
                         if (namespace.length < maxLength) {
                             args[0] = namespace + Array(maxLength - namespace.length + 1).join(" ") + args[0].replace(namespace, "");
                         }
-                        console.log.apply(args);
+                        // console.log.apply(args);
                         process.stdout.write(util.format.apply(util, args) + "\n");
                     };
                 }
             } else if (align) {
                 maxLength = maxLength > namespace.length ? maxLength : namespace.length;
                 this._loggers[type].log = (...args) => {
-                    console.log.apply(args);
+                    // console.log.apply(args);
                     process.stdout.write(util.format.apply(util, args) + "\n");
                 };
             }
