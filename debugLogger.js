@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const debug = require("debug");
+const util = require("util");
 const mapToStdOut = typeof process.env.DEBUG_STDOUT !== "undefined" ? !!process.env.DEBUG_STDOUT : false;
 const align = typeof process.env.DEBUG_ALIGN !== "undefined" ? !!process.env.DEBUG_ALIGN : false;
 let maxLength = 0;
@@ -27,9 +28,10 @@ class DebugLogger {
                     maxLength = maxLength > namespace.length ? maxLength : namespace.length;
                     this._loggers[type].log = (...args) => {
                         if (namespace.length < maxLength) {
-                            args[0] = namespace + Array(maxLength - namespace.length).join(" ") + args[0].replace(namespace, "");
+                            args[0] = namespace + Array(maxLength - namespace.length + 1).join(" ") + args[0].replace(namespace, "");
                         }
                         console.log.apply(args);
+                        process.stdout.write(util.format.apply(util, args) + "\n");
                     };
                 }
             }
@@ -37,6 +39,7 @@ class DebugLogger {
                 maxLength = maxLength > namespace.length ? maxLength : namespace.length;
                 this._loggers[type].log = (...args) => {
                     console.log.apply(args);
+                    process.stdout.write(util.format.apply(util, args) + "\n");
                 };
             }
         }

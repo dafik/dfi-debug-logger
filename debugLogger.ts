@@ -1,4 +1,5 @@
 import * as debug from "debug";
+import * as  util from "util";
 
 const mapToStdOut = typeof process.env.DEBUG_STDOUT !== "undefined" ? !!process.env.DEBUG_STDOUT : false;
 const align = typeof process.env.DEBUG_ALIGN !== "undefined" ? !!process.env.DEBUG_ALIGN : false;
@@ -43,15 +44,17 @@ export default class DebugLogger {
                     maxLength = maxLength > namespace.length ? maxLength : namespace.length;
                     this._loggers[type].log = (...args) => {
                         if (namespace.length < maxLength) {
-                            args[0] = namespace + Array(maxLength - namespace.length).join(" ") + args[0].replace(namespace, "");
+                            args[0] = namespace + Array(maxLength - namespace.length + 1).join(" ") + args[0].replace(namespace, "");
                         }
                         console.log.apply(args);
+                        process.stdout.write(util.format.apply(util, args) + "\n");
                     };
                 }
             } else if (align) {
                 maxLength = maxLength > namespace.length ? maxLength : namespace.length;
                 this._loggers[type].log = (...args) => {
                     console.log.apply(args);
+                    process.stdout.write(util.format.apply(util, args) + "\n");
                 };
             }
         }
