@@ -1,6 +1,9 @@
 import * as debug from "debug";
 
 const mapToStdOut = typeof process.env.DEBUG_STDOUT !== "undefined" ? !!process.env.DEBUG_STDOUT : false;
+const align = typeof process.env.DEBUG_ALIGN !== "undefined" ? !!process.env.DEBUG_ALIGN : false;
+
+let maxLength: number = 0;
 
 const enum Colors {
     debug = 6,
@@ -27,12 +30,29 @@ export default class DebugLogger {
 
     public getLogger(type: string, color?: number): debug.IDebugger {
         if (!this._loggers.hasOwnProperty(type)) {
-            this._loggers[type] = debug(this.name + ":" + type);
+            const namespace = this.name + ":" + type;
+
+            this._loggers[type] = debug(namespace);
             if (color) {
                 this._loggers[type].color = color;
             }
             if (mapToStdOut) {
-                this._loggers[type].log = console.log.bind(console);
+                if (!align) {
+                    this._loggers[type].log = console.log.bind(console);
+                } else {
+                    maxLength = maxLength > namespace.length ? maxLength : namespace.length;
+                    this._loggers[type].log = (...args) => {
+                        if (namespace.length < maxLength) {
+                            args[0] = namespace + Array(maxLength - namespace.length).join(" ") + args[0].replace(namespace, "");
+                        }
+                        console.log.apply(args);
+                    };
+                }
+            } else if (align) {
+                maxLength = maxLength > namespace.length ? maxLength : namespace.length;
+                this._loggers[type].log = (...args) => {
+                    console.log.apply(args);
+                };
             }
         }
         return this._loggers[type];

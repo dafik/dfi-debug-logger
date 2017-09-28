@@ -19,6 +19,9 @@
   "devDependencies": {
     "@types/node": "^6.0.41",
     "@types/mocha": "^2.2.32",
-    "mocha": "^3.1.2"
+    "mocha": "^3.1.2",
+    "nyc": "^11.0.3",
+    "ts-node": "^3.3.0",
+    "typescript": "^2.4.2"
   }
 }
