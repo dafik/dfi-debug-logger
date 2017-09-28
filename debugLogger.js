@@ -22,13 +22,16 @@ class DebugLogger {
             }
             if (mapToStdOut) {
                 if (!align) {
-                    this._loggers[type].log = console.log.bind(console);
+                    this._loggers[type].log = (...args) => {
+                        // console.log.apply(args);
+                        process.stdout.write(util.format.apply(util, args) + "\n");
+                    };
                 }
                 else {
                     maxLength = maxLength > namespace.length ? maxLength : namespace.length;
                     this._loggers[type].log = (...args) => {
                         if (namespace.length < maxLength) {
-                            args[0] = namespace + Array(maxLength - namespace.length + 1).join(" ") + args[0].replace(namespace, "");
+                            args[0] = args[0].replace(namespace, namespace + Array(maxLength - namespace.length + 1).join(" "));
                         }
                         // console.log.apply(args);
                         process.stdout.write(util.format.apply(util, args) + "\n");
