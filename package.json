@@ -1,6 +1,6 @@
 {
   "name": "local-dfi-debug-logger",
-  "version": "0.1.18",
+  "version": "0.1.19",
   "description": "debug extensions",
   "main": "debugLogger.js",
   "repository": {
