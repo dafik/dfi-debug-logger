@@ -1,5 +1,4 @@
 import * as debug from "debug";
-import * as  util from "util";
 
 const mapToStdOut = typeof process.env.DEBUG_STDOUT !== "undefined" ? !!process.env.DEBUG_STDOUT : false;
 const align = typeof process.env.DEBUG_ALIGN !== "undefined" ? !!process.env.DEBUG_ALIGN : false;
@@ -19,6 +18,7 @@ const log = (...args: any[]) => {
     if (typeof process === "undefined") {
         console.log.apply(args);
     } else {
+        const util = require("util");
         process.stdout.write(util.format.apply(util, args) + "\n");
     }
 };
