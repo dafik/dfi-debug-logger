@@ -15,6 +15,13 @@ const enum Colors {
     fatal = 5
 }
 
+const log = (...args: any[]) => {
+    if (typeof process === "undefined") {
+        console.log.apply(args);
+    } else {
+        process.stdout.write(util.format.apply(util, args) + "\n");
+    }
+};
 export default class DebugLogger {
     get name(): string {
         return this._name;
@@ -24,7 +31,6 @@ export default class DebugLogger {
     private _loggers: { [key: string]: debug.IDebugger };
 
     constructor(name: string) {
-
         this._loggers = {};
         this._name = name;
     }
@@ -39,26 +45,19 @@ export default class DebugLogger {
             }
             if (mapToStdOut) {
                 if (!align) {
-                    this._loggers[type].log = (...args) => {
-                        // console.log.apply(args);
-                        process.stdout.write(util.format.apply(util, args) + "\n");
-                    };
+                    this._loggers[type].log = log;
                 } else {
                     maxLength = maxLength > namespace.length ? maxLength : namespace.length;
-                    this._loggers[type].log = (...args) => {
+                    this._loggers[type].log = (...args: any[]) => {
                         if (namespace.length < maxLength) {
                             args[0] = args[0].replace(namespace, namespace + Array(maxLength - namespace.length + 1).join(" "));
                         }
-                        // console.log.apply(args);
-                        process.stdout.write(util.format.apply(util, args) + "\n");
+                        log(args);
                     };
                 }
             } else if (align) {
                 maxLength = maxLength > namespace.length ? maxLength : namespace.length;
-                this._loggers[type].log = (...args) => {
-                    // console.log.apply(args);
-                    process.stdout.write(util.format.apply(util, args) + "\n");
-                };
+                this._loggers[type].log = log;
             }
         }
         return this._loggers[type];

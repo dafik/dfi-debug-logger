@@ -5,6 +5,14 @@ const util = require("util");
 const mapToStdOut = typeof process.env.DEBUG_STDOUT !== "undefined" ? !!process.env.DEBUG_STDOUT : false;
 const align = typeof process.env.DEBUG_ALIGN !== "undefined" ? !!process.env.DEBUG_ALIGN : false;
 let maxLength = 0;
+const log = (...args) => {
+    if (typeof process === "undefined") {
+        console.log.apply(args);
+    }
+    else {
+        process.stdout.write(util.format.apply(util, args) + "\n");
+    }
+};
 class DebugLogger {
     get name() {
         return this._name;
@@ -22,10 +30,7 @@ class DebugLogger {
             }
             if (mapToStdOut) {
                 if (!align) {
-                    this._loggers[type].log = (...args) => {
-                        // console.log.apply(args);
-                        process.stdout.write(util.format.apply(util, args) + "\n");
-                    };
+                    this._loggers[type].log = log;
                 }
                 else {
                     maxLength = maxLength > namespace.length ? maxLength : namespace.length;
@@ -33,17 +38,13 @@ class DebugLogger {
                         if (namespace.length < maxLength) {
                             args[0] = args[0].replace(namespace, namespace + Array(maxLength - namespace.length + 1).join(" "));
                         }
-                        // console.log.apply(args);
-                        process.stdout.write(util.format.apply(util, args) + "\n");
+                        log(args);
                     };
                 }
             }
             else if (align) {
                 maxLength = maxLength > namespace.length ? maxLength : namespace.length;
-                this._loggers[type].log = (...args) => {
-                    // console.log.apply(args);
-                    process.stdout.write(util.format.apply(util, args) + "\n");
-                };
+                this._loggers[type].log = log;
             }
         }
         return this._loggers[type];
