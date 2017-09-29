@@ -1,7 +1,7 @@
 import * as debug from "debug";
 
-const mapToStdOut = typeof process.env.DEBUG_STDOUT !== "undefined" ? !!process.env.DEBUG_STDOUT : false;
-const align = typeof process.env.DEBUG_ALIGN !== "undefined" ? !!process.env.DEBUG_ALIGN : false;
+const mapToStdOut = typeof process !== "undefined" && typeof process.env.DEBUG_STDOUT !== "undefined" ? !!process.env.DEBUG_STDOUT : false;
+const align = typeof process !== "undefined" && typeof process.env.DEBUG_ALIGN !== "undefined" ? !!process.env.DEBUG_ALIGN : false;
 
 let maxLength: number = 0;
 
