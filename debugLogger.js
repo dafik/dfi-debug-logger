@@ -38,13 +38,18 @@ class DebugLogger {
                         if (namespace.length < maxLength) {
                             args[0] = args[0].replace(namespace, namespace + Array(maxLength - namespace.length + 1).join(" "));
                         }
-                        log(args);
+                        log.apply(null, args);
                     };
                 }
             }
             else if (align) {
                 maxLength = maxLength > namespace.length ? maxLength : namespace.length;
-                this._loggers[type].log = log;
+                this._loggers[type].log = (...args) => {
+                    if (namespace.length < maxLength) {
+                        args[0] = args[0].replace(namespace, namespace + Array(maxLength - namespace.length + 1).join(" "));
+                    }
+                    log.apply(null, args);
+                };
             }
         }
         return this._loggers[type];
