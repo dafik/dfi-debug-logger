@@ -1,5 +1,7 @@
 import * as debug from "debug";
 
+const log = ((typeof process === "undefined") ? require("./browser") : require("./node")).default;
+
 const mapToStdOut = typeof process !== "undefined" && typeof process.env.DEBUG_STDOUT !== "undefined" ? !!process.env.DEBUG_STDOUT : false;
 const align = typeof process !== "undefined" && typeof process.env.DEBUG_ALIGN !== "undefined" ? !!process.env.DEBUG_ALIGN : false;
 
@@ -14,14 +16,6 @@ const enum Colors {
     fatal = 5
 }
 
-const log = (...args: any[]) => {
-    if (typeof process === "undefined") {
-        console.log.apply(args);
-    } else {
-        const util = require("util");
-        process.stdout.write(util.format.apply(util, args) + "\n");
-    }
-};
 export default class DebugLogger {
     get name(): string {
         return this._name;
