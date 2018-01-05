@@ -1,14 +1,17 @@
 {
-  "name": "local-dfi-debug-logger",
+  "name": "dfi-debug-logger",
   "version": "0.1.22",
   "description": "debug extensions",
   "main": "debugLogger.js",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@gitlab.dev:dfi/dfi-debug-logger.git"
+    "url": "https://github.com/dafik/dfi-debug-logger.git"
   },
-  "author": "z.wieczorek",
-  "license": "UNLICENSED",
+  "author": {
+    "name": "Zbyszek Wieczorek",
+    "email": "zbyszek.wieczorek at gmal.com"
+  },
+  "license": "MIT",
   "dependencies": {
     "debug": "*",
     "@types/debug": "0.0.30"
