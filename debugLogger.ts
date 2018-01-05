@@ -1,6 +1,8 @@
 import * as debug from "debug";
 
 const log = ((typeof process === "undefined") ? require("./browser") : require("./node")).default;
+// const log = require("./browser")
+// TODO walk around for browser require
 
 const mapToStdOut = typeof process !== "undefined" && typeof process.env.DEBUG_STDOUT !== "undefined" ? !!process.env.DEBUG_STDOUT : false;
 const align = typeof process !== "undefined" && typeof process.env.DEBUG_ALIGN !== "undefined" ? !!process.env.DEBUG_ALIGN : false;
@@ -17,6 +19,11 @@ const enum Colors {
 }
 
 export default class DebugLogger {
+
+    static get levels(): IDfiDebugLoggerLevels {
+        return LOG_LEVELS;
+    }
+
     get name(): string {
         return this._name;
     }
@@ -63,50 +70,68 @@ export default class DebugLogger {
     }
 
     public trace(formatter: any, ...args: any[]): void {
-        return this.getLogger("trace", Colors.trace).apply(null, arguments);
+        return this.getLogger(DebugLogger.levels.TRACE, Colors.trace).apply(null, arguments);
     }
 
     public debug(formatter: any, ...args: any[]): void {
-        return this.getLogger("debug", Colors.debug).apply(null, arguments);
+        return this.getLogger(DebugLogger.levels.DEBUG, Colors.debug).apply(null, arguments);
     }
 
     public info(formatter: any, ...args: any[]): void {
-        return this.getLogger("info", Colors.info).apply(null, arguments);
+        return this.getLogger(DebugLogger.levels.INFO, Colors.info).apply(null, arguments);
     }
 
     public warn(formatter: any, ...args: any[]): void {
-        return this.getLogger("warn", Colors.warn).apply(null, arguments);
+        return this.getLogger(DebugLogger.levels.WARN, Colors.warn).apply(null, arguments);
     }
 
     public error(formatter: any, ...args: any[]): void {
-        return this.getLogger("error", Colors.error).apply(null, arguments);
+        return this.getLogger(DebugLogger.levels.ERROR, Colors.error).apply(null, arguments);
     }
 
     public fatal(formatter: any, ...args: any[]): void {
-        return this.getLogger("fatal", Colors.fatal).apply(null, arguments);
+        return this.getLogger(DebugLogger.levels.FATAL, Colors.fatal).apply(null, arguments);
     }
 
     public isTraceEnabled(): boolean {
-        return this.getLogger("trace").enabled;
+        return this.getLogger(DebugLogger.levels.TRACE).enabled;
     }
 
     public isDebugEnabled(): boolean {
-        return this.getLogger("debug").enabled;
+        return this.getLogger(DebugLogger.levels.DEBUG).enabled;
     }
 
     public isInfoEnabled(): boolean {
-        return this.getLogger("info").enabled;
+        return this.getLogger(DebugLogger.levels.INFO).enabled;
     }
 
     public isWarnEnabled(): boolean {
-        return this.getLogger("warn").enabled;
+        return this.getLogger(DebugLogger.levels.WARN).enabled;
     }
 
     public isErrorEnabled(): boolean {
-        return this.getLogger("error").enabled;
+        return this.getLogger(DebugLogger.levels.ERROR).enabled;
     }
 
     public isFatalEnabled(): boolean {
-        return this.getLogger("fatal").enabled;
+        return this.getLogger(DebugLogger.levels.FATAL).enabled;
     }
 }
+
+export interface IDfiDebugLoggerLevels {
+    TRACE: string;
+    DEBUG: string;
+    INFO: string;
+    WARN: string;
+    ERROR: string;
+    FATAL: string;
+}
+
+const LOG_LEVELS: IDfiDebugLoggerLevels = {
+    DEBUG: "debug",
+    ERROR: "error",
+    FATAL: "fatal",
+    INFO: "info",
+    TRACE: "trace",
+    WARN: "warn"
+};

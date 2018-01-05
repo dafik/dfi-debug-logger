@@ -2,10 +2,15 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const debug = require("debug");
 const log = ((typeof process === "undefined") ? require("./browser") : require("./node")).default;
+// const log = require("./browser")
+// TODO walk around for browser require
 const mapToStdOut = typeof process !== "undefined" && typeof process.env.DEBUG_STDOUT !== "undefined" ? !!process.env.DEBUG_STDOUT : false;
 const align = typeof process !== "undefined" && typeof process.env.DEBUG_ALIGN !== "undefined" ? !!process.env.DEBUG_ALIGN : false;
 let maxLength = 0;
 class DebugLogger {
+    static get levels() {
+        return LOG_LEVELS;
+    }
     get name() {
         return this._name;
     }
@@ -47,41 +52,49 @@ class DebugLogger {
         return this._loggers[type];
     }
     trace(formatter, ...args) {
-        return this.getLogger("trace", 4 /* trace */).apply(null, arguments);
+        return this.getLogger(DebugLogger.levels.TRACE, 4 /* trace */).apply(null, arguments);
     }
     debug(formatter, ...args) {
-        return this.getLogger("debug", 6 /* debug */).apply(null, arguments);
+        return this.getLogger(DebugLogger.levels.DEBUG, 6 /* debug */).apply(null, arguments);
     }
     info(formatter, ...args) {
-        return this.getLogger("info", 2 /* info */).apply(null, arguments);
+        return this.getLogger(DebugLogger.levels.INFO, 2 /* info */).apply(null, arguments);
     }
     warn(formatter, ...args) {
-        return this.getLogger("warn", 3 /* warn */).apply(null, arguments);
+        return this.getLogger(DebugLogger.levels.WARN, 3 /* warn */).apply(null, arguments);
     }
     error(formatter, ...args) {
-        return this.getLogger("error", 1 /* error */).apply(null, arguments);
+        return this.getLogger(DebugLogger.levels.ERROR, 1 /* error */).apply(null, arguments);
     }
     fatal(formatter, ...args) {
-        return this.getLogger("fatal", 5 /* fatal */).apply(null, arguments);
+        return this.getLogger(DebugLogger.levels.FATAL, 5 /* fatal */).apply(null, arguments);
     }
     isTraceEnabled() {
-        return this.getLogger("trace").enabled;
+        return this.getLogger(DebugLogger.levels.TRACE).enabled;
     }
     isDebugEnabled() {
-        return this.getLogger("debug").enabled;
+        return this.getLogger(DebugLogger.levels.DEBUG).enabled;
     }
     isInfoEnabled() {
-        return this.getLogger("info").enabled;
+        return this.getLogger(DebugLogger.levels.INFO).enabled;
     }
     isWarnEnabled() {
-        return this.getLogger("warn").enabled;
+        return this.getLogger(DebugLogger.levels.WARN).enabled;
     }
     isErrorEnabled() {
-        return this.getLogger("error").enabled;
+        return this.getLogger(DebugLogger.levels.ERROR).enabled;
     }
     isFatalEnabled() {
-        return this.getLogger("fatal").enabled;
+        return this.getLogger(DebugLogger.levels.FATAL).enabled;
     }
 }
 exports.default = DebugLogger;
+const LOG_LEVELS = {
+    DEBUG: "debug",
+    ERROR: "error",
+    FATAL: "fatal",
+    INFO: "info",
+    TRACE: "trace",
+    WARN: "warn"
+};
 //# sourceMappingURL=debugLogger.js.map

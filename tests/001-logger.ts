@@ -19,9 +19,9 @@ describe("object", () => {
 
         // Remove cached paths to the module.
         // Thanks to @bentael for pointing this out.
-        Object.keys(module.constructor._pathCache).forEach((cacheKey) => {
+        Object.keys((module.constructor as any)._pathCache).forEach((cacheKey) => {
             if (cacheKey.indexOf(moduleName) > 0) {
-                delete module.constructor._pathCache[cacheKey];
+                delete (module.constructor as any)._pathCache[cacheKey];
             }
         });
     }
@@ -30,25 +30,32 @@ describe("object", () => {
      * Traverses the cache to search for all the cached
      * files of the specified module name
      */
-    function searchCache(moduleName: string, callback: (mod) => void) {
+    function searchCache(moduleName: string, callback: (mod: any) => void) {
         // Resolve the module identified by the specified name
-        let mod = require.resolve(moduleName);
+        const moduleResolved = require.resolve(moduleName);
 
         // Check if the module has been resolved and found within
         // the cache
-        if (mod && ((mod = require.cache[mod]) !== undefined)) {
-            // Recursively go over the results
-            (function traverse(mod) {
-                // Go over each of the module's children and
-                // traverse them
-                mod.children.forEach(function (child) {
-                    traverse(child);
-                });
+        if (moduleResolved) {
+            const module = require.cache[moduleResolved];
+            if (module !== undefined) {
 
-                // Call the specified callback providing the
-                // found cached module
-                callback(mod);
-            }(mod));
+                // Recursively go over the results
+
+                const traverse = (mod: any) => {
+                    // Go over each of the module's children and
+                    // traverse them
+                    mod.children.forEach((child: any) => {
+                        traverse(child);
+                    });
+
+                    // Call the specified callback providing the
+                    // found cached module
+                    callback(mod);
+                };
+
+                traverse(module);
+            }
         }
     }
 
@@ -105,7 +112,7 @@ describe("object", () => {
         const debugLogger1 = require("../debugLogger").default;
 
         const logger = new debugLogger1(loggerName);
-        logger.getLogger("error").log = logFn;
+        logger.getLogger(DebugLogger.levels.ERROR).log = logFn;
 
         logger.error(loggerMessage);
     };
@@ -113,8 +120,45 @@ describe("object", () => {
     it("logger disabled", onLoggerDisabled);
     it("logger enabled", onLoggerEnabled);
     it("logger test", onLoggerTest);
+    it("logger test all", (done: MochaDone) => {
+
+        const loggerName = "testLogger";
+        const loggerMessage = "testMessage";
+
+        process.env.DEBUG = loggerName + "*";
+        purgeCache("../debugLogger");
+
+        const debugLogger1 = require("../debugLogger").default;
+        const logger = new debugLogger1(loggerName);
+
+        logger[DebugLogger.levels.TRACE](loggerMessage);
+        logger[DebugLogger.levels.DEBUG](loggerMessage);
+        logger[DebugLogger.levels.INFO](loggerMessage);
+        logger[DebugLogger.levels.WARN](loggerMessage);
+        logger[DebugLogger.levels.ERROR](loggerMessage);
+        logger[DebugLogger.levels.FATAL](loggerMessage);
+
+        done();
+    });
 
     it("logger test tab ", (done) => {
+
+        purgeCache("../debugLogger");
+        process.env.DEBUG = "a*";
+        const debugLogger1 = require("../debugLogger").default;
+
+        const logger = new debugLogger1("abcabcabc");
+        const logger1 = new debugLogger1("a");
+
+        logger.info("test");
+        logger1.info("test");
+
+        done();
+
+    });
+    it("logger test map ", (done) => {
+
+        process.env.DEBUG_STDOUT = false;
 
         purgeCache("../debugLogger");
         process.env.DEBUG = "a*";

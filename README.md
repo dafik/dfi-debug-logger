@@ -1,2 +1,2 @@
-debug logger with instantinting loggers on denamd
+extended version of debug logger with instantiating loggers on demand and log levels
  
