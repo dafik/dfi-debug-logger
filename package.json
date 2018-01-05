@@ -1,6 +1,6 @@
 {
   "name": "dfi-debug-logger",
-  "version": "0.1.23",
+  "version": "0.1.24",
   "description": "debug extensions (ES6)",
   "main": "debugLogger.js",
   "repository": {
