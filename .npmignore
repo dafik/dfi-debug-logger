@@ -1,6 +1,4 @@
 /.idea/
 /*.iml
-.nyc_output/
 /node_modules/
-/*.js
-/*.map
+.nyc_output/
