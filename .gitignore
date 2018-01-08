@@ -2,5 +2,7 @@
 /*.iml
 .nyc_output/
 /node_modules/
-/*.js
-/*.map
+*.js
+**/*.js
+*.map
+**/*.map
